@@ -20,12 +20,23 @@ const Card = styled.div`
 	z-index: 5;
 `
 
+const Image = styled.img`
+	width: 150px;
+	float: left;
+	border-radius: 5px;
+	margin-right: 20px;
+	-webkit-filter: sepia(1);
+	-moz-filter: sepia(1);
+	filter: sepia(1);
+`
+
 const PokemonInfo = () => {
 	let { pokemonId } = useParams();
 	const [pokemonInfo, setPokemonInfo] = useState({
 		loading: false,
 		pokemonData: null
 	});
+
 
 
 
@@ -41,10 +52,21 @@ const PokemonInfo = () => {
 
 
 
+	const source = pokemonInfo.pokemonData ? pokemonInfo.pokemonData.sprites.front_default : ''
+	// console.log(source)
+
 	return (
-		<Card>
+
+		< Card >
 			{pokemonInfo.pokemonData ? pokemonInfo.pokemonData.abilities[0].ability.name : ''}
-		</Card>
+			{pokemonInfo.pokemonData ? pokemonInfo.pokemonData.sprites.front_default : ''}
+			<Image
+				scr={`${source}`}
+				alt="Pokemon image">
+			</Image>
+
+
+		</ Card >
 	)
 }
 
