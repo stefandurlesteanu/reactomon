@@ -1,4 +1,3 @@
 [build]
-base = "reactomon/"
-publish = "reactomon/build/"
-command = "npm run build"
+  command = "npm run build"
+  publish="build"
