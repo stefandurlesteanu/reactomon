@@ -73,7 +73,7 @@ function App() {
 				<Route exact path="/">
 					<Container>
 						<h3>All Pokemons in one video</h3>
-						<ReactPlayer
+						<ReactPlayer responsive
 							url="https://www.youtube.com/watch?v=MfTMC-C48yU"
 							playing='true'
 							volume='0'
