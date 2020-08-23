@@ -16,8 +16,8 @@ import { Container } from 'react-bootstrap'
 function App() {
 
 	const [pokemonData, setPokemonData] = useState([]);
-	const [nextUrl, setNextUrl] = useState('');
-	const [prevUrl, setPrevUrl] = useState('');
+	// const [nextUrl, setNextUrl] = useState('');
+	// const [prevUrl, setPrevUrl] = useState('');
 	const [loading, setLoading] = useState(true);
 	const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
 	const typesUrl = 'https://pokeapi.co/api/v2/type';
@@ -27,8 +27,8 @@ function App() {
 		async function fetchData() {
 			let response = await getAllPokemon(initialUrl);
 			let types = await loadingTypes(typesUrl);
-			setNextUrl(response.next);
-			setPrevUrl(response.previous);
+			// setNextUrl(response.next);
+			// setPrevUrl(response.previous);
 			await loadingPokemon(response.results);
 			setTypes(types.results);
 			setLoading(false);
@@ -45,6 +45,8 @@ function App() {
 		}))
 		setPokemonData(_pokemon)
 	}
+
+	console.log(loading);
 
 	// const next = async () => {
 	// 	if (!nextUrl) return;

@@ -77,6 +77,7 @@ const P = styled.p`
 
 const PokemonInfo = ({ pokemonData }) => {
 	let { pokemonId } = useParams();
+	// eslint-disable-next-line eqeqeq
 	const pokemon = pokemonData.find((pokemon) => { return pokemon.id == pokemonId });
 	const [isLoading, setIsLoading] = useState(true)
 
