@@ -1,6 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import PokemonPage from './PokemonPage'
 import CardComponent from './CardComponent'
 
 function Pokemons({ pokemonData }) {
@@ -11,8 +9,5 @@ function Pokemons({ pokemonData }) {
 
 }
 
-// Pokemons.propTypes = {
-// 	pokemons: PropTypes.array.isRequired
-// }
 
 export default Pokemons

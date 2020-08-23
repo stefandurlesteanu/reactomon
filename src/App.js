@@ -8,6 +8,8 @@ import Types from './components/pages/Types';
 import PokemonInfo from './components/PokemonInfo';
 import { useState, useEffect } from 'react';
 import { getAllPokemon, getPokemon, loadingTypes } from './services/pokemon';
+import ReactPlayer from "react-player";
+import { Container } from 'react-bootstrap'
 
 
 
@@ -49,18 +51,18 @@ function App() {
 		<Router>
 			<div className="App" >
 				<Header />
-				{/* {
-					loading ? <h1>Loading...</h1> : (
-						<>
-							<div>
-								{pokemonData.map((pokemon, i) => {
-									return <Card key={i} pokemon={pokemon} />
-								})}
-							</div>
-						</>
-					)
-				} */}
-				<Route exact path="/pokemons" render={props => (
+				<Route exact path="/">
+					<Container>
+						<h3>All Pokemons in one video</h3>
+						<ReactPlayer
+							url="https://www.youtube.com/watch?v=MfTMC-C48yU"
+							playing='true'
+							volume='0'
+							controls='true'
+						/>
+					</Container>
+				</Route>
+				<Route path="/pokemons" render={props => (
 					<Pokemons pokemonData={pokemonData} />
 				)} />
 				<Route path="/types" render={props => (
