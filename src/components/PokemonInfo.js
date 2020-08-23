@@ -132,25 +132,6 @@ const PokemonInfo = ({ pokemonData }) => {
 		</>
 	)
 
-	function waitForElement() {
-		if (typeof pokemon !== "undefined") {
-			console.log(pokemon)
-		}
-		else {
-			setTimeout(waitForElement, 250);
-		}
-	}
-
-
-	waitForElement();
-
-	return (
-
-		<Card>
-			{/* <Image src={pokemon.sprites.front_default}></Image> */}
-			{pokemonId}
-		</Card>
-	)
 }
 
 export default PokemonInfo;
