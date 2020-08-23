@@ -7,7 +7,8 @@ import Pokemons from './components/Pokemons';
 import Types from './components/pages/Types';
 import PokemonInfo from './components/PokemonInfo';
 import { useState, useEffect } from 'react';
-import { getAllPokemon, getPokemon } from './services/pokemon'
+import { getAllPokemon, getPokemon, loadingTypes } from './services/pokemon';
+
 
 
 function App() {
@@ -17,13 +18,17 @@ function App() {
 	// const [prevUrl, setPrevUrl] = useState('');
 	const [loading, setLoading] = useState(true);
 	const initialUrl = 'https://pokeapi.co/api/v2/pokemon';
+	const typesUrl = 'https://pokeapi.co/api/v2/type';
+	const [types, setTypes] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
 			let response = await getAllPokemon(initialUrl);
+			let types = await loadingTypes(typesUrl);
 			// setNextUrl(response.next);
 			// setPrevUrl(response.previous);
 			await loadingPokemon(response.results);
+			setTypes(types.results);
 			setLoading(false);
 		}
 
@@ -39,23 +44,33 @@ function App() {
 		setPokemonData(_pokemon)
 	}
 
-	console.log(pokemonData)
-	// console.log(nextUrl)
-	// console.log(prevUrl)
-	console.log(loading)
+
 	return (
 		<Router>
 			<div className="App" >
 				<Header />
+				{/* {
+					loading ? <h1>Loading...</h1> : (
+						<>
+							<div>
+								{pokemonData.map((pokemon, i) => {
+									return <Card key={i} pokemon={pokemon} />
+								})}
+							</div>
+						</>
+					)
+				} */}
 				<Route exact path="/pokemons" render={props => (
-					<React.Fragment>
-						<Pokemons pokemons={this.state.pokemons} />
-					</React.Fragment>
+					<Pokemons pokemonData={pokemonData} />
 				)} />
-				<Route path="/types" component={Types} />
+				<Route path="/types" render={props => (
+					<Types types={types} />
+				)} />
 				<Route
-					path="/pokemon/:pokemonId/"
-					component={PokemonInfo}
+					path="/pokemon/:pokemonId/" render={props => (
+						<PokemonInfo pokemonData={pokemonData} />
+					)}
+
 				/>
 			</div>
 		</Router>

@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-class PokemonPage extends Component {
+import React from 'react';
+import CardComponent from './CardComponent'
+// import { Link } from 'react-router-dom';
 
 
-	render() {
-		const { name, url } = this.props.pokemon;
-		const pattern = new RegExp('.+(/.+)$');
-		let _id = url.match(pattern);
-		const image =
-			axios.get(url)
-				.then(result => { console.log(result.data); })
+function PokemonPage({ pokemon }) {
+
+	// const { name, url } = this.props.pokemon;
+	// const pattern = new RegExp('.+(/.+)$');
+	// let _id = url.match(pattern);
 
 
-		return (
-			<Link to={`/pokemon${_id[1]}`}>
-				<p>Pokemons name is {name} and picture is {image.base_experience ? image.base_experience : ''}</p>
-			</Link >
-		)
-	}
+	return (
+
+		<CardComponent>
+			{pokemon}
+		</CardComponent>
+		// <Link to={`/pokemon${_id[1]}`}>
+		// 	<p>Pokemons name is {name} and picture is {image.base_experience ? image.base_experience : ''}</p>
+		// </Link >
+	)
+
 }
-
-
 
 
 export default PokemonPage
