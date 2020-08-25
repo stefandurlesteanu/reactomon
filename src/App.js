@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Header from './components/layout/Header';
 import './App.css';
@@ -9,7 +10,10 @@ import PokemonInfo from './components/PokemonInfo';
 import { useState, useEffect } from 'react';
 import { getAllPokemon, getPokemon, loadingTypes } from './services/pokemon';
 import ReactPlayer from "react-player";
-import { Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap';
+import { PokemonProvider } from './PokemonContext';
+import MyPokemons from './components/MyPokemons';
+
 
 
 
@@ -36,7 +40,7 @@ function App() {
 
 		fetchData();
 
-	}, [])
+	}, [setLoading])
 
 	const loadingPokemon = async (data) => {
 		let _pokemon = await Promise.all(data.map(async pokemon => {
@@ -46,7 +50,7 @@ function App() {
 		setPokemonData(_pokemon)
 	}
 
-	console.log(loading);
+
 
 	// const next = async () => {
 	// 	if (!nextUrl) return;
@@ -67,34 +71,36 @@ function App() {
 	// }
 
 	return (
-		<Router>
-			<div className="App" >
-				<Header />
-				<Route exact path="/">
-					<Container>
-						<h3>All Pokemons in one video</h3>
-						<ReactPlayer responsive
-							url="https://www.youtube.com/watch?v=MfTMC-C48yU"
-							playing='true'
-							volume='0'
-							controls='true'
-						/>
-					</Container>
-				</Route>
-				<Route path="/pokemons" render={props => (
-					<Pokemons pokemonData={pokemonData} />
-				)} />
-				<Route path="/types" render={props => (
-					<Types types={types} />
-				)} />
-				<Route
-					path="/pokemon/:pokemonId/" render={props => (
-						<PokemonInfo pokemonData={pokemonData} />
-					)}
-
-				/>
-			</div>
-		</Router>
+		<PokemonProvider>
+			<Router>
+				<div className="App" >
+					<Header />
+					<Route exact path="/">
+						<Container>
+							<h3>All Pokemons in one video</h3>
+							<ReactPlayer responsive
+								url="https://www.youtube.com/watch?v=MfTMC-C48yU"
+								playing={true}
+								volume={0}
+								controls={true}
+							/>
+						</Container>
+					</Route>
+					<Route path="/pokemons" render={props => (
+						<Pokemons pokemonData={pokemonData} />
+					)} />
+					<Route path="/types" render={props => (
+						<Types types={types} />
+					)} />
+					<Route path="/mypokemons" component={MyPokemons} />
+					<Route
+						path="/pokemon/:pokemonId/" render={props => (
+							<PokemonInfo pokemonData={pokemonData} />
+						)}
+					/>
+				</div>
+			</Router>
+		</PokemonProvider>
 	);
 }
 

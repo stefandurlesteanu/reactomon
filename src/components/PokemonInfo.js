@@ -1,8 +1,9 @@
+/* eslint-disable eqeqeq */
 import { useParams } from "react-router";
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { PokemonContext } from '../PokemonContext';
 
 const Card = styled.div`
 	position: absolute;
@@ -77,9 +78,15 @@ const P = styled.p`
 
 const PokemonInfo = ({ pokemonData }) => {
 	let { pokemonId } = useParams();
-	// eslint-disable-next-line eqeqeq
 	const pokemon = pokemonData.find((pokemon) => { return pokemon.id == pokemonId });
 	const [isLoading, setIsLoading] = useState(true)
+	const [pokemonz, setPokemonz] = useContext(PokemonContext);
+
+	const catchThisPokemon = e => {
+		e.preventDefault();
+		setPokemonz(prevPokemonz => [...prevPokemonz, pokemon]);
+		console.log(pokemonz)
+	}
 
 	useEffect(() => {
 		function waitForElement() {
@@ -100,6 +107,7 @@ const PokemonInfo = ({ pokemonData }) => {
 	return (
 		<>
 			<Gradient></Gradient>
+
 			<Card>
 				{isLoading ? 'Loading....' : (
 					<>
@@ -112,16 +120,15 @@ const PokemonInfo = ({ pokemonData }) => {
 									<P>Height: {pokemon.height}</P>
 									<P>Base experience: {pokemon.base_experience}</P>
 									<P>Abilities: {pokemon.types.map(type => {
-										return <span style={{ textTransform: 'uppercase' }}>{type.type.name} </span>
+										return <span key={type.type.name} style={{ textTransform: 'uppercase' }}>{type.type.name} </span>
 									})}</P>
 									<P>Weight: {pokemon.weight} </P>
 								</Col>
 								<Col>
 									<P>
 										<H3>Stats:</H3>
-										<p></p>
 										{pokemon.stats.map(stat => {
-											return <p style={{ textTransform: 'capitalize' }}>{stat.stat.name} : {stat.base_stat} </p>
+											return <p key={stat.stat.name} style={{ textTransform: 'capitalize' }}>{stat.stat.name} : {stat.base_stat} </p>
 										})}
 									</P>
 								</Col>
@@ -129,6 +136,7 @@ const PokemonInfo = ({ pokemonData }) => {
 						</Container>
 					</>
 				)}
+				<Button onClick={catchThisPokemon}>Catch This Pokemon!!!</Button>
 			</Card>
 		</>
 	)

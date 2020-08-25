@@ -11,6 +11,7 @@ function Header() {
 				<Nav className="mr-auto">
 					<Nav.Link href="/pokemons">Pokemons</Nav.Link>
 					<Nav.Link href="/types">Types</Nav.Link>
+					<Nav.Link href="/mypokemons">MyPokemons</Nav.Link>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

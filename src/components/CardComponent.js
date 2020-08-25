@@ -30,7 +30,6 @@ const Button = styled.button`
 
 function CardComponent({ pokemon }) {
 	let cardClass = `card card--${pokemon.types[0].type.name}`
-	console.log(pokemon.abilities[0].ability.name)
 
 	return (
 		<figure className={cardClass}>
